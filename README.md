@@ -20,7 +20,7 @@ Two methods **t2f** and **t2m** are provided to process data after collecting th
 
 Then, go harvest tweets together with replies (emojis are also collected, very important for sentiment analysis):
 ```
-me.eatTweets(t2f, 'out.json')
+me.eatTweets(t2f, 'eater.json')
 ```
 If you just want get the replies of someone's `username` some tweet `tweet_id`, this will return a json array.
 ```
