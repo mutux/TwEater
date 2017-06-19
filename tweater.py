@@ -33,7 +33,7 @@ class TwEater:
     def eatTweets(self, digester, bpargs):
         # Set default values of parameters.
         max_tweets = 100
-        bufferlength = 1000
+        bufferlength = 100
         if 'max_tweets' in self.conf:
             max_tweets = self.conf['max_tweets']
         if 'bufferlength' in self.conf:
@@ -75,7 +75,7 @@ class TwEater:
         return total
 
     def eatComments(self, user_name, tweet_id):
-        max_comments = 100
+        max_comments = 10
         if 'max_comments' in self.conf:
             max_comments = self.conf['max_comments']
 
