@@ -7,7 +7,7 @@ import json
 # Write tweets to file
 def t2f(tweets, file):
     print ' ------ Saved to file: ' + file + ' * Stats * ------'
-    with open(file, 'a+') as f:
+    with open(file, 'w+') as f:
         json.dump(tweets, f)
 
 

@@ -10,7 +10,6 @@ class TwEater:
         self.conf = {}
         if len(args) == 1:
             confN = args[0]
-            # print confN
             with open(confN, 'r') as f:
                 self.conf = json.load(f)
         else:
@@ -28,7 +27,6 @@ class TwEater:
                 self.conf['max_comments'] = kwargs['max_comments']
             if 'bufferlength' in kwargs:
                 self.conf['bufferlength'] = kwargs['bufferlength']
-        # print self.conf
 
     def eatTweets(self, digester, bpargs):
         # Set default values of parameters.
@@ -46,13 +44,10 @@ class TwEater:
         buffer_tweets = []
         cookiejar = requests.cookies.RequestsCookieJar()
         has_more = True
-        # print has_more is True
 
         while has_more is True and total < max_tweets:
             page = self.ripStatusPage(cursor, cookiejar)
-            # print done
             cnt_c, has_more, cursor, page_tweets = self.cookPage(page, isComment=False)
-            # print len(page_tweets)
             total += len(page_tweets)
             buffer_tweets.extend(page_tweets)
 
@@ -63,8 +58,6 @@ class TwEater:
                 print ' Total tweets: ' + str(total) + ', this time tweets: ' + str(len(buffer_tweets)) + '.\n Total items: ' + str(bufferall) + ', this time items: ' + str(bufferTotal) + '.\n'
                 buffer_tweets = []
                 bufferTotal = 0
-            # print has_more is True
-        # print total
         if digester and bufferTotal > 0:
             bufferall += bufferTotal
             digester(buffer_tweets, bpargs)
@@ -87,13 +80,10 @@ class TwEater:
         comments = []
         while has_more is True and total < max_comments:
             page = self.ripCommentPage(user_name, tweet_id, cursor, cookiejar)
-            # print page
             cnt_cp, has_more, cursor, pageTweets = self.cookPage(page, isComment=True)
             comments.extend(pageTweets)
             total += len(pageTweets)
             cnt_c += cnt_cp
-        # print has_more is True
-        # print pageTweets
         # cnt_c should be 0
         return cnt_c, comments
 
@@ -144,12 +134,10 @@ class TwEater:
 
         # Process links in a tweet div, including url, hashtags, and mentions contained in the tweet
         links = textdiv('a')
-        # print 'HTML: ' + textdiv.html().encode('utf-8')
         if len(links) > 0:
             hashtags = []
             mentions = []
             for link in links:
-                # print PyQuery(link)
                 textUrl = PyQuery(link).attr('data-expanded-url')
                 textHashtag = PyQuery(link)('a.twitter-hashtag')('b')
                 if len(textHashtag) > 0:
@@ -169,7 +157,6 @@ class TwEater:
         if len(emojis) > 0:
             for emo in emojis:
                 textEmoji = PyQuery(emo)
-                # print textEmoji
                 if textEmoji is not None:
                     emoji = {}
                     emoji['face'] = textEmoji.attr('alt').encode('utf-8')
@@ -182,7 +169,6 @@ class TwEater:
         textq = textdiv.remove('a').remove('img')
         if textq is not None:
             twe["text"] = textq.text().encode('utf-8')
-            # print twe["text"]
 
         # Process optional Geo area of a tweet
         twe["geo"] = ''
@@ -196,7 +182,6 @@ class TwEater:
             cnt_c = len(twe['comments'])
 
         # Finally return a json of a tweet
-        # print twe
         return cnt_c, twe
 
     def ripStatusPage(self, cursor, cookiesJar):
@@ -214,7 +199,6 @@ class TwEater:
             if 'since' in self.conf and len(self.conf['since'].strip()) > 0:
                 parUrl += ' since:' + self.conf['since']
         url = url % (parUrl, cursor)
-        # print url
 
         headers = {
             'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36',
@@ -230,7 +214,6 @@ class TwEater:
 
     def ripCommentPage(self, user_name, tweet_id, cursor, cookiesJar):
         url = "https://twitter.com/i/%s/conversation/%s?include_available_features=1&include_entities=1&l=en&max_position=%s&reset_error_state=false"
-        # print url % (user_name, tweet_id, cursor)
         url = url % (user_name, tweet_id, cursor)
         headers = {
             'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36',
