@@ -27,7 +27,7 @@ if __name__ == "__main__":
     # print me.eatComments('barackobama', '876456804305252353')
 
     # Write tweets to json file
-    me.eatTweets(t2f, 'eater.json')
+    me.eatTweets(t2f, '../out/eater.json')
 
     # Write tweets to Mongo Collection
     # client = MongoClient()
