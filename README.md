@@ -38,14 +38,14 @@ The example values for the 7 parameters:
 
 #### Note:
 **`user` and `query`, at least one of them must be specified.**
-  - `user`: specifies which user you want collect, -default ""-
-  - `query`: either a keyword or a hashtag you care about, -default ""-
-  - `since`: the start time of the tweets you want, -default ""-
-  - `until`: the end time of the tweets you want, -default ""-
-  - `max_tweets`: how many tweets you want collect for this query and/or user, -default 1-
-  - `max_comment`: how many replies you want for each tweet if there is any, -default 1-
-  - `bufferlength`: process and clear the data in a reasonably sized batch before you run out of memory, -default 100-.
+  - `user`: specifies which user you want collect, **default ""**
+  - `query`: either a keyword or a hashtag you care about, **default ""**
+  - `since`: the start time of the tweets you want, **default ""**
+  - `until`: the end time of the tweets you want, **default ""**
+  - `max_tweets`: how many tweets you want collect for this query and/or user, **default 1**
+  - `max_comment`: how many replies you want for each tweet if there is any, **default 1**
+  - `bufferlength`: process and clear the data in a reasonably sized batch before you run out of memory, **default 100**.
 
 ## Finally
-Kindly keep in mind: 'Please, don't abuse it, for the benefit of learners or researchers!'
+Kindly keep in mind: 'Please, don't abuse it, for the benefits of learners or researchers!'
 Have fun!
