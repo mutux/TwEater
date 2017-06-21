@@ -11,18 +11,18 @@ Also, official API imposes limits on time and amount of the tweets you can colle
 Look into the **eater.py**, it's a simple example of using this bot.
 First, you need place your order either by a configuration file, or by **K=V** parameters:
 ```
-TwOrder.order('tworder.conf')
-TwOrder.order(user='BarackObama')
+to.TwOrder.order('order.conf')
+to.TwOrder.order(user='BarackObama')
 ```
 Two methods **digest_2_file** and **digest_2_mongo** are provided to process data after collecting them, either store them in a file or in a MongoDB, or even process them on the fly, it's up to you. You can define **your own** processing function.
 
 Then, go harvest tweets together with replies (emojis are also collected, very important for sentiment analysis):
 ```
-TwEater.eatTweets(digest_2_file, 'out')
+te.TwEater.eatTweets(digest_2_file, 'out')
 ```
 If you just want get the replies of someone's `username` some tweet `tweet_id`, this will return a json array.
 ```
-print TwChef.shopComments('BarackObama', '876456804305252353')
+print tc.TwChef.shopComments('BarackObama', '876456804305252353')
 ```
 
 ## Parameters
