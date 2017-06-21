@@ -8,7 +8,7 @@ Therefore, not only the tweet text and basic attributes, but also **conversation
 Also, official API imposes limits on time and amount of the tweets you can collect, but TwEater does not!
 
 ## Examples
-Look into the eater.py, it's a simple example of using this bot.
+Look into the **eater.py**, it's a simple example of using this bot.
 First, you need place your order either by a configuration file, or by **K=V** parameters:
 ```
 TwOrder.order('tworder.conf')
