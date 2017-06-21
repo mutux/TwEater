@@ -8,23 +8,20 @@ Therefore, not only the tweet text and basic attributes, but also **conversation
 Also, official API imposes limits on time and amount of the tweets you can collect, but TwEater does not!
 
 ## Examples
-You can create an instance with arbituray number of **K=V** parameters:
+First, you need place your order either by a configuration file, or by **K=V** parameters:
 ```
-me = TwEater(user='barackobama')
+TwOrder.order('tworder.conf')
+TwOrder.order(user='BarackObama')
 ```
-You can also create an instance with a configuration **file** (an example configuration file is provided)
-```
-me = TwEater('tweater.conf')
-```
-Two methods **t2f** and **t2m** are provided to process data after collecting them, either store them in a file or in a MongoDB, or even process them on the fly, it's up to you. You can define **your own** processing function.
+Two methods **digest_2_file** and **digest_2_mongo** are provided to process data after collecting them, either store them in a file or in a MongoDB, or even process them on the fly, it's up to you. You can define **your own** processing function.
 
 Then, go harvest tweets together with replies (emojis are also collected, very important for sentiment analysis):
 ```
-me.eatTweets(t2f, 'eater.json')
+TwEater.eatTweets(digest_2_file, 'out')
 ```
 If you just want get the replies of someone's `username` some tweet `tweet_id`, this will return a json array.
 ```
-print me.eatComments('barackobama', '876456804305252353')
+print TwChef.shopComments('BarackObama', '876456804305252353')
 ```
 
 ## Parameters
@@ -35,19 +32,19 @@ The example values for the 7 parameters:
     since="2017-06-18"
     until="2017-06-19"
     max_tweets=100
-    max_comments=50
-    bufferlength=500
+    max_comments=10
+    bufferlength=100
 ```
 
 #### Note:
 **`user` and `query`, at least one of them must be specified.**
-  - `user`: specifies which user you want collect
-  - `query`: either a keyword or a hashtag you care about
-  - `since`: the start time of the tweets you want, default ""
-  - `until`: the end time of the tweets you want, default ""
-  - `max_tweets`: how many tweets you want collect for this query and/or user, default 100.
-  - `max_comment`: how many replies you want for each tweet if there is any, default 10.
-  - `bufferlength`: process and clear the data in a reasonable sized batch before you run out of memory, default 100.
+  - `user`: specifies which user you want collect, -default ""-
+  - `query`: either a keyword or a hashtag you care about, -default ""-
+  - `since`: the start time of the tweets you want, -default ""-
+  - `until`: the end time of the tweets you want, -default ""-
+  - `max_tweets`: how many tweets you want collect for this query and/or user, -default 1-
+  - `max_comment`: how many replies you want for each tweet if there is any, -default 1-
+  - `bufferlength`: process and clear the data in a reasonably sized batch before you run out of memory, -default 100-.
 
 ## Finally
 Kindly keep in mind: 'Please, don't abuse it, for the benefit of learners or researchers!'
