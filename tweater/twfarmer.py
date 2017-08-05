@@ -22,9 +22,12 @@ class TwFarmer:
         url = url % (parUrl, cursor)
 
         headers = {
-            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36',
+            'Host': 'twitter.com',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64)',
             'Accept-Language': "en-US,en;q=0.8",
             'X-Requested-With': "XMLHttpRequest",
+            'Accept': 'application/json, text/javascript, */*; q=0.01',
+            'Connection': "keep-alive"
         }
         try:
             r = requests.get(url, headers=headers, cookies=cookiesJar)
@@ -38,9 +41,12 @@ class TwFarmer:
         url = "https://twitter.com/i/%s/conversation/%s?include_available_features=1&include_entities=1&max_position=%s&reset_error_state=false"
         url = url % (user_name, tweet_id, cursor)
         headers = {
-            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36',
+            'Host': 'twitter.com',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64)',
             'Accept-Language': "en-US,en;q=0.8",
             'X-Requested-With': "XMLHttpRequest",
+            'Accept': 'application/json, text/javascript, */*; q=0.01',
+            'Connection': "keep-alive"
         }
         try:
             r = requests.get(url, headers=headers, cookies=cookiesJar)
