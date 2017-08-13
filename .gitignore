@@ -69,6 +69,7 @@ target/
 
 # Output
 out/
+.idea/
 
 # Jupyter Notebook
 .ipynb_checkpoints
