@@ -20,12 +20,18 @@ class TwEater:
 
         cursor = ''
         buffer_tweets = []
-        cookiejar = requests.cookies.RequestsCookieJar()
-        has_more = True
-
-        while has_more is True and total < max_tweets:
-            page = TwFarmer.ripStatusPage(cursor, cookiejar)
-            cnt_c, has_more, cursor, page_tweets = TwChef.cookPage(page, isComment=False)
+        sess = requests.Session()
+        cnt_blank = 0
+        while total < max_tweets:
+            page = TwFarmer.ripStatusPage(cursor, sess)
+            cnt_c, has_more, cursor, page_tweets = TwChef.cookPage(page, isComment=False, session=sess)
+            if len(page_tweets) == 0:
+                cnt_blank += 1
+            if len(page_tweets) > 0:
+                cnt_blank = 0
+            if cnt_blank > 3:
+                print 'Too many blank pages, terminating this search.'
+                break
             total += len(page_tweets)
             buffer_tweets.extend(page_tweets)
 

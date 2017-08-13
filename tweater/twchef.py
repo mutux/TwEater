@@ -2,12 +2,12 @@ from datetime import datetime
 from pyquery import PyQuery
 from twfarmer import TwFarmer
 from tworder import TwOrder as order
-import requests
+import time
 
 
 class TwChef:
     @staticmethod
-    def cookPage(page, isComment=False):
+    def cookPage(page, session, isComment=False):
         cursor = ''
         items = []
         # cnt_cp: Number of comments implies by this page
@@ -18,19 +18,21 @@ class TwChef:
         if 'items_html' in page and len(page['items_html'].strip()) == 0:
             return cnt_cp, has_more, cursor, items
         has_more = page['has_more_items']
+        if has_more is False and not isComment:
+            time.sleep(4)
         cursor = page['min_position']
         tweets = PyQuery(page['items_html'])('div.js-stream-tweet')
         if len(tweets) == 0:
             return cnt_cp, has_more, cursor, items
         for tweetArea in tweets:
             tweet_pq = PyQuery(tweetArea)
-            cnt_c, twe = TwChef.cookTweet(tweet_pq, isComment)
+            cnt_c, twe = TwChef.cookTweet(tweet_pq, session, isComment)
             items.append(twe)
             cnt_cp += cnt_c
         return cnt_cp, has_more, cursor, items
 
     @staticmethod
-    def cookTweet(tweetq, isComment=False):
+    def cookTweet(tweetq, session, isComment=False):
         """
         "" Read the document, and parse it with PyQuery
         """
@@ -99,27 +101,32 @@ class TwChef:
 
         # Process comments area if any
         if not isComment and twe['replies'] > 0:
-            cn, twe['comments'] = TwChef.shopComments(twe['user'], twe['id'])
+            cn, twe['comments'] = TwChef.shopComments(twe['user'], twe['id'], twe['replies'], session)
             cnt_c = len(twe['comments'])
 
         # Finally return a json of a tweet
         return cnt_c, twe
 
     @staticmethod
-    def shopComments(user_name, tweet_id):
-        max_comments = 1
+    def shopComments(user_name, tweet_id, cnt_replies, session):
         if 'max_comments' in order.conf and order.conf['max_comments'] > 0:
             max_comments = order.conf['max_comments']
-
+        else:
+            max_comments = 0
         cnt_c = 0
         cursor = ''
-        cookiejar = requests.cookies.RequestsCookieJar()
         total = 0
         has_more = True
         comments = []
-        while has_more is True and total < max_comments:
-            page = TwFarmer.ripCommentPage(user_name, tweet_id, cursor, cookiejar)
-            cnt_cp, has_more, cursor, pageTweets = TwChef.cookPage(page, isComment=True)
+        lim = max_comments
+        if cnt_replies < max_comments:
+            lim = cnt_replies
+        while has_more is True and total < lim:
+            page = TwFarmer.ripCommentPage(user_name, tweet_id, cursor, session)
+            cnt_cp, has_more, cursor, pageTweets = TwChef.cookPage(page, session, isComment=True)
+            if len(pageTweets) == 0:
+                print 'Weird, no comments!'
+                break
             comments.extend(pageTweets)
             total += len(pageTweets)
             cnt_c += cnt_cp
