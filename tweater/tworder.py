@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import json
 import sys
 
@@ -9,9 +10,11 @@ class TwOrder:
         'query': '',
         'since': '',
         'until': '',
-        'max_tweets': 1,
-        'max_comments': 1,
-        'bufferlength': 100
+        'max_tweets': 0,
+        'max_comments': 0,
+        'bufferlength': 0,
+        'near': '',
+        'within': ''
     }
 
     @staticmethod
@@ -37,6 +40,11 @@ class TwOrder:
                 TwOrder.conf['max_comments'] = kwargs['max_comments']
             if 'bufferlength' in kwargs:
                 TwOrder.conf['bufferlength'] = kwargs['bufferlength']
+            if 'near' in kwargs:
+                TwOrder.conf['near'] = kwargs['near']
+                if 'within' in kwargs:
+                    TwOrder.conf['within'] = kwargs['within']
+                
         if len(TwOrder.conf['query']) == 0 and len(TwOrder.conf['user']) == 0:
             print "Parameter query and user cannot be empty simutaneously!\nUsage: TwOrder(query=\"Father's Day\")"
             sys.exit(1)

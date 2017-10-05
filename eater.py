@@ -28,7 +28,7 @@ if __name__ == "__main__":
     # to.TwOrder.order(user='BarackObama')
 
     # Write tweets to json file
-    te.TwEater.eatTweets(digest_2_file, 'out')
+    te.TwEater.eatTweets(digest_2_file, 'test')
 
     # Collect replies of specific tweet_id of a user, username is case-sensitive
     # print tc.TwChef.shopComments('BarackObama', '876456804305252353')

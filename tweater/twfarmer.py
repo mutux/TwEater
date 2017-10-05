@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import requests
 from tworder import TwOrder as order
 
@@ -18,6 +19,9 @@ class TwFarmer:
                 parUrl += ' until:' + order.conf['until']
             if 'since' in order.conf and len(order.conf['since'].strip()) > 0:
                 parUrl += ' since:' + order.conf['since']
+            if 'near' in order.conf and len(order.conf['near'].strip()) > 0:
+                if 'within' in order.conf and len(order.conf['within'].strip()) > 0:
+                    parUrl += " near:" + order.conf['near'] + " within:" + order.conf['within']
         url = url % (parUrl, cursor)
 
         headers = {
@@ -26,6 +30,7 @@ class TwFarmer:
             'X-Requested-With': "XMLHttpRequest"
         }
         try:
+            # print unicode(url).encode('utf8')
             r = sess.get(url, headers=headers)
             return r.json()
         except requests.exceptions.RequestException as e:

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from datetime import datetime
 from pyquery import PyQuery
 from twfarmer import TwFarmer
