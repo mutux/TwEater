@@ -1,11 +1,12 @@
 # TwEater
 A Python way to collect **MORE** Tweets and their **REPLIES** from Twitter than the official API.
+Currently only **Python 2.7.x** is supported.
 
 The motivation is to collect tweets for **Text Mining** or NLP tasks, such as message understanding, talking bot, opinion Mining, information extraction, event detection & tracking, tweet ranking, and so on.
 
 Therefore, not only the tweet text and basic attributes, but also **conversations**, **emojis**, links, mentions, hashtags are all necessary to be able to collected by it.
 
-Also, official API imposes limits on time and amount of the tweets you can collect, but TwEater does not!
+Also, official API imposes limits on time and amount of the tweets you can collect, try TwEater!
 
 ## Examples
 Look into the **eater.py**, it's a simple example of using this bot.
@@ -18,23 +19,27 @@ Two methods **digest_2_file** and **digest_2_mongo** are provided to process dat
 
 Then, go harvest tweets together with replies (emojis are also collected, very important for sentiment analysis):
 ```
-te.TwEater.eatTweets(digest_2_file, 'out')
+TwEater.eatTweets(digest_2_file, 'out')
 ```
 If you just want get the replies of someone's `username` some tweet `tweet_id`, this will return a json array.
 ```
-print tc.TwChef.shopComments('BarackObama', '876456804305252353')
+print TwChef.shopComments('BarackObama', '876456804305252353')
 ```
 
 ## Parameters
-The example values for the 7 parameters:
+The example values for the 9 parameters:
 ```
-    user=""
-    query="Father's day"
-    since="2017-06-18"
-    until="2017-06-19"
-    max_tweets=100
-    max_comments=10
-    bufferlength=100
+    {
+      "user": "",
+      "query": "calorie OR eat",
+      "since": "2017-06-10",
+      "until": "2017-07-19",
+      "max_tweets": 10,
+      "max_comments": 0,
+      "bufferlength": 100,
+      "near": "Montréal, Québec",
+      "within": "5km"
+    }
 ```
 
 #### Note:
@@ -45,8 +50,10 @@ The example values for the 7 parameters:
   - `until`: the end time of the tweets you want, **default ""**
   - `max_tweets`: how many tweets you want collect for this query and/or user, **default 1**
   - `max_comment`: how many replies you want for each tweet if there is any, **default 1**
-  - `bufferlength`: process and clear the data in a reasonably sized batch before you run out of memory, **default 100**.
+  - `bufferlength`: process and clear the data in a reasonably sized batch before you run out of memory, **default 100**
+  - `near`: process and clear the data in a reasonably sized batch before you run out of memory, **default ""**.
+  - `bufferlength`: process and clear the data in a reasonably sized batch before you run out of memory, **default ""**.
 
-## Finally
-Kindly keep in mind: 'Please, don't abuse it, for the benefits of learners or researchers!'
+## [MuTuX](http://www.mutux.com "MuTux's Home")
+For the benefits of learners or researchers, don't abuse it!
 Have fun!
