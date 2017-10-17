@@ -12,14 +12,17 @@ Also, official API imposes limits on time and amount of the tweets you can colle
 Look into the **eater.py**, it's a simple example of using this bot.
 First, you need place your order either by a configuration file, or by **K=V** parameters:
 ```
-to.TwOrder.order('order.conf')
-to.TwOrder.order(user='BarackObama')
+TwOrder.order('order.conf')
+```
+Or
+```
+TwOrder.order(user='BarackObama')
 ```
 Two methods **digest_2_file** and **digest_2_mongo** are provided to process data after collecting them, either store them in a file or in a MongoDB, or even process them on the fly, it's up to you. You can define **your own** processing function.
 
 Then, go harvest tweets together with replies (emojis are also collected, very important for sentiment analysis):
 ```
-TwEater.eatTweets(digest_2_file, 'out')
+TwEater.eatTweets(digest_2_file, 'test')
 ```
 If you just want get the replies of someone's `username` some tweet `tweet_id`, this will return a json array.
 ```
@@ -27,7 +30,7 @@ print TwChef.shopComments('BarackObama', '876456804305252353')
 ```
 
 ## Parameters
-The example values for the 9 parameters:
+The example values for the 9 parameters is as follows, which can be seen from file `order.conf`:
 ```
     {
       "user": "",
@@ -51,8 +54,8 @@ The example values for the 9 parameters:
   - `max_tweets`: how many tweets you want collect for this query and/or user, **default 1**
   - `max_comment`: how many replies you want for each tweet if there is any, **default 1**
   - `bufferlength`: process and clear the data in a reasonably sized batch before you run out of memory, **default 100**
-  - `near`: process and clear the data in a reasonably sized batch before you run out of memory, **default ""**.
-  - `bufferlength`: process and clear the data in a reasonably sized batch before you run out of memory, **default ""**.
+  - `near`: a location where the tweets are posted do you need, **default ""**.
+  - `within`: has to be used together with `near`, specifying the radius of the location, **default ""**.
 
 ## [MuTuX](http://www.mutux.com "MuTux's Home")
 For the benefits of learners or researchers, don't abuse it!
