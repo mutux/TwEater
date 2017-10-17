@@ -21,7 +21,7 @@ class TwFarmer:
                 parUrl += ' since:' + order.conf['since']
             if 'near' in order.conf and len(order.conf['near'].strip()) > 0:
                 if 'within' in order.conf and len(order.conf['within'].strip()) > 0:
-                    parUrl += " near:" + order.conf['near'] + " within:" + order.conf['within']
+                    parUrl += " near:\"" + order.conf['near'] + "\" within:" + order.conf['within']
         url = url % (parUrl, cursor)
 
         headers = {
@@ -31,7 +31,7 @@ class TwFarmer:
         }
         try:
             # print unicode(url).encode('utf8')
-            r = sess.get(url, headers=headers)
+            r = sess.get(url.encode('utf-8'), headers=headers)
             return r.json()
         except requests.exceptions.RequestException as e:
             print 'url: ', url
