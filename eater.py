@@ -1,7 +1,4 @@
-from tweater import tworder as to
-from tweater import tweater as te
-# from tweater import TwChef as tc
-# from pymongo import MongoClient
+from tweater import TwEater, TwOrder
 from datetime import datetime
 import json
 
@@ -24,11 +21,11 @@ def digest_2_mongo(tweets, col):
 if __name__ == "__main__":
     print "\n " + unicode(datetime.now())
     # Initialize the parameters
-    to.TwOrder.order('order.conf')
+    TwOrder.order('order.conf')
     # to.TwOrder.order(user='BarackObama')
 
     # Write tweets to json file
-    te.TwEater.eatTweets(digest_2_file, 'test')
+    TwEater.eatTweets(digest_2_file, 'test')
 
     # Collect replies of specific tweet_id of a user, username is case-sensitive
     # print tc.TwChef.shopComments('BarackObama', '876456804305252353')
