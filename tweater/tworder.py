@@ -14,7 +14,8 @@ class TwOrder:
         'max_comments': 0,
         'bufferlength': 0,
         'near': '',
-        'within': ''
+        'within': '',
+        'lang': 'en'
     }
 
     @staticmethod
@@ -44,7 +45,9 @@ class TwOrder:
                 TwOrder.conf['near'] = kwargs['near']
                 if 'within' in kwargs:
                     TwOrder.conf['within'] = kwargs['within']
-                
+            if 'lang' in kwargs:
+                TwOrder.conf['lang'] = kwargs['lang']
+
         if len(TwOrder.conf['query']) == 0 and len(TwOrder.conf['user']) == 0:
             print "Parameter query and user cannot be empty simutaneously!\nUsage: TwOrder(query=\"Father's Day\")"
             sys.exit(1)

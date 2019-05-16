@@ -16,13 +16,18 @@ class TwChef:
         # that means cnt_cp = 0
         cnt_cp = 0
         has_more = False
-        if 'items_html' in page and len(page['items_html'].strip()) == 0:
-            return cnt_cp, has_more, cursor, items
-        has_more = page['has_more_items']
+        if 'items_html' in page:
+            if len(page['items_html'].strip()) == 0:
+                return cnt_cp, has_more, cursor, items
+        if 'has_more_items' in page:
+            has_more = page['has_more_items']
         if has_more is False and not isComment:
             time.sleep(4)
-        cursor = page['min_position']
-        tweets = PyQuery(page['items_html'])('div.js-stream-tweet')
+        if 'min_position' in page:
+            cursor = page['min_position']
+        tweets = []
+        if 'items_html' in page:
+            tweets = PyQuery(page['items_html'])('div.js-stream-tweet')
         if len(tweets) == 0:
             return cnt_cp, has_more, cursor, items
         for tweetArea in tweets:
