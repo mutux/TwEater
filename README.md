@@ -41,7 +41,8 @@ The example values for the 9 parameters is as follows, which can be seen from fi
       "max_comments": 0,
       "bufferlength": 100,
       "near": "Montréal, Québec",
-      "within": "5km"
+      "within": "5km",
+      "lang": "en"
     }
 ```
 
@@ -56,6 +57,7 @@ The example values for the 9 parameters is as follows, which can be seen from fi
   - `bufferlength`: process and clear the data in a reasonably sized batch before you run out of memory, **default 100**
   - `near`: a location where the tweets are posted do you need, **default ""**.
   - `within`: has to be used together with `near`, specifying the radius of the location, **default ""**.
+  - `lang`: specify the language of the tweets you need, only English and French are suppored at the moment, **default "en"**.
 
 ## [MuTuX](http://www.mutux.com "MuTux's Home")
 For the benefits of learners or researchers, don't abuse it!
